@@ -118,11 +118,10 @@ public function contactSubmit()
   $data = json_decode(file_get_contents('php://input'), true);
   $name = $data['name'];
   $phone = $data['phone'];
-  $email = $data['email'];
+  $email = 'vinodwohlig@gmail.com';
   $organization = $data['organization'];
   $query = $data['query'];
-
-$data['message'] = $this->contact_model->contactSubmit($name,$phone,$email,$organization,$query);
+  $data['message'] = $this->contact_model->contactSubmit($name,$phone,$email,$organization,$query);
 $this->load->view('json', $data);
 }
 

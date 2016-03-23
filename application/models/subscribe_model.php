@@ -85,6 +85,7 @@ public function subscribe($email){
 </div></body></html>";
          $this->email->message($message);
          $this->email->send();
+         echo "mail sended".$email;
 
     $object = new stdClass();
     $object->value = true;

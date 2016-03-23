@@ -1,10 +1,10 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-class Site extends CI_Controller 
+class Site extends CI_Controller
 {
 	public function __construct( )
 	{
 		parent::__construct();
-		
+
 		$this->is_logged_in();
 	}
 	function is_logged_in( )
@@ -45,7 +45,7 @@ class Site extends CI_Controller
         }
         $data["message"]=true;
         $this->load->view("json",$data);
-        
+
     }
 	public function index()
 	{
@@ -53,7 +53,7 @@ class Site extends CI_Controller
 		$this->checkaccess($access);
 		$data[ 'page' ] = 'dashboard';
 		$data[ 'title' ] = 'Welcome';
-		$this->load->view( 'template', $data );	
+		$this->load->view( 'template', $data );
 	}
 	public function createuser()
 	{
@@ -66,7 +66,7 @@ class Site extends CI_Controller
 //        $data['category']=$this->category_model->getcategorydropdown();
 		$data[ 'page' ] = 'createuser';
 		$data[ 'title' ] = 'Create User';
-		$this->load->view( 'template', $data );	
+		$this->load->view( 'template', $data );
 	}
 	function createusersubmit()
 	{
@@ -81,7 +81,7 @@ class Site extends CI_Controller
 		$this->form_validation->set_rules('socialid','Socialid','trim');
 		$this->form_validation->set_rules('logintype','logintype','trim');
 		$this->form_validation->set_rules('json','json','trim');
-		if($this->form_validation->run() == FALSE)	
+		if($this->form_validation->run() == FALSE)
 		{
 			$data['alerterror'] = validation_errors();
             $data['gender']=$this->user_model->getgenderdropdown();
@@ -90,7 +90,7 @@ class Site extends CI_Controller
             $data[ 'logintype' ] =$this->user_model->getlogintypedropdown();
             $data[ 'page' ] = 'createuser';
             $data[ 'title' ] = 'Create User';
-            $this->load->view( 'template', $data );	
+            $this->load->view( 'template', $data );
 		}
 		else
 		{
@@ -111,7 +111,7 @@ class Site extends CI_Controller
             $billingcountry=$this->input->post('billingcountry');
             $billingpincode=$this->input->post('billingpincode');
             $billingcontact=$this->input->post('billingcontact');
-            
+
             $shippingaddress=$this->input->post('shippingaddress');
             $shippingcity=$this->input->post('shippingcity');
             $shippingstate=$this->input->post('shippingstate');
@@ -127,7 +127,7 @@ class Site extends CI_Controller
             $country=$this->input->post('country');
             $fax=$this->input->post('fax');
             $gender=$this->input->post('gender');
-            	
+
             $config['upload_path'] = './uploads/';
 			$config['allowed_types'] = 'gif|jpg|png|jpeg';
 			$this->load->library('upload', $config);
@@ -137,7 +137,7 @@ class Site extends CI_Controller
 			{
 				$uploaddata = $this->upload->data();
 				$image=$uploaddata['file_name'];
-                
+
                 $config_r['source_image']   = './uploads/' . $uploaddata['file_name'];
                 $config_r['maintain_ratio'] = TRUE;
                 $config_t['create_thumb'] = FALSE;///add this
@@ -146,13 +146,13 @@ class Site extends CI_Controller
                 $config_r['quality']    = 100;
                 //end of configs
 
-                $this->load->library('image_lib', $config_r); 
+                $this->load->library('image_lib', $config_r);
                 $this->image_lib->initialize($config_r);
                 if(!$this->image_lib->resize())
                 {
                     echo "Failed." . $this->image_lib->display_errors();
                     //return false;
-                }  
+                }
                 else
                 {
                     //print_r($this->image_lib->dest_image);
@@ -160,9 +160,9 @@ class Site extends CI_Controller
                     $image=$this->image_lib->dest_image;
                     //return false;
                 }
-                
+
 			}
-            
+
 			if($this->user_model->create($name,$email,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$firstname,$lastname,$phone,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$billingcontact,$shippingaddress,$shippingcity,$shippingstate,$shippingcountry,$shippingpincode,$shippingcontact,$shippingname,$currency,$credit,$companyname,$registrationno,$vatnumber,$country,$fax,$gender)==0)
 			$data['alerterror']="New user could not be created.";
 			else
@@ -177,67 +177,67 @@ class Site extends CI_Controller
 		$this->checkaccess($access);
 		$data['page']='viewusers';
         $data['base_url'] = site_url("site/viewusersjson");
-        
+
 		$data['title']='View Users';
 		$this->load->view('template',$data);
-	} 
+	}
     function viewusersjson()
 	{
 		$access = array("1");
 		$this->checkaccess($access);
-        
-        
+
+
         $elements=array();
         $elements[0]=new stdClass();
         $elements[0]->field="`user`.`id`";
         $elements[0]->sort="1";
         $elements[0]->header="ID";
         $elements[0]->alias="id";
-        
-        
+
+
         $elements[1]=new stdClass();
         $elements[1]->field="`user`.`name`";
         $elements[1]->sort="1";
         $elements[1]->header="Name";
         $elements[1]->alias="name";
-        
+
         $elements[2]=new stdClass();
         $elements[2]->field="`user`.`email`";
         $elements[2]->sort="1";
         $elements[2]->header="Email";
         $elements[2]->alias="email";
-        
+
         $elements[3]=new stdClass();
         $elements[3]->field="`user`.`socialid`";
         $elements[3]->sort="1";
         $elements[3]->header="SocialId";
         $elements[3]->alias="socialid";
-        
+
         $elements[4]=new stdClass();
         $elements[4]->field="`user`.`logintype`";
         $elements[4]->sort="1";
         $elements[4]->header="Logintype";
         $elements[4]->alias="logintype";
-        
+
         $elements[5]=new stdClass();
         $elements[5]->field="`user`.`json`";
         $elements[5]->sort="1";
         $elements[5]->header="Json";
         $elements[5]->alias="json";
-       
+
         $elements[6]=new stdClass();
         $elements[6]->field="`accesslevel`.`name`";
         $elements[6]->sort="1";
         $elements[6]->header="Accesslevel";
         $elements[6]->alias="accesslevelname";
-       
+
         $elements[7]=new stdClass();
         $elements[7]->field="`statuses`.`name`";
         $elements[7]->sort="1";
         $elements[7]->header="Status";
         $elements[7]->alias="status";
-       
-        
+
+
         $search=$this->input->get_post("search");
         $pageno=$this->input->get_post("pageno");
         $orderby=$this->input->get_post("orderby");
@@ -247,19 +247,19 @@ class Site extends CI_Controller
         {
             $maxrow=20;
         }
-        
+
         if($orderby=="")
         {
             $orderby="id";
             $orderorder="ASC";
         }
-       
+
         $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `user` LEFT OUTER JOIN `logintype` ON `logintype`.`id`=`user`.`logintype` LEFT OUTER JOIN `accesslevel` ON `accesslevel`.`id`=`user`.`accesslevel` LEFT OUTER JOIN `statuses` ON `statuses`.`id`=`user`.`status`");
-        
+
 		$this->load->view("json",$data);
-	} 
-    
-    
+	}
+
+
 	function edituser()
 	{
 		$access = array("1");
@@ -283,7 +283,7 @@ class Site extends CI_Controller
 	{
 		$access = array("1");
 		$this->checkaccess($access);
-		
+
 		$this->form_validation->set_rules('name','Name','trim|required|max_length[30]');
 		$this->form_validation->set_rules('email','Email','trim|required|valid_email');
 		$this->form_validation->set_rules('password','Password','trim|min_length[6]|max_length[30]');
@@ -293,7 +293,7 @@ class Site extends CI_Controller
 		$this->form_validation->set_rules('socialid','Socialid','trim');
 		$this->form_validation->set_rules('logintype','logintype','trim');
 		$this->form_validation->set_rules('json','json','trim');
-		if($this->form_validation->run() == FALSE)	
+		if($this->form_validation->run() == FALSE)
 		{
 			$data['alerterror'] = validation_errors();
 			$data[ 'status' ] =$this->user_model->getstatusdropdown();
@@ -308,7 +308,7 @@ class Site extends CI_Controller
 		}
 		else
 		{
-            
+
             $id=$this->input->get_post('id');
             $name=$this->input->get_post('name');
             $email=$this->input->get_post('email');
@@ -328,7 +328,7 @@ class Site extends CI_Controller
             $billingcountry=$this->input->post('billingcountry');
             $billingpincode=$this->input->post('billingpincode');
             $billingcontact=$this->input->post('billingcontact');
-            
+
             $shippingaddress=$this->input->post('shippingaddress');
             $shippingcity=$this->input->post('shippingcity');
             $shippingstate=$this->input->post('shippingstate');
@@ -353,7 +353,7 @@ class Site extends CI_Controller
 			{
 				$uploaddata = $this->upload->data();
 				$image=$uploaddata['file_name'];
-                
+
                 $config_r['source_image']   = './uploads/' . $uploaddata['file_name'];
                 $config_r['maintain_ratio'] = TRUE;
                 $config_t['create_thumb'] = FALSE;///add this
@@ -362,13 +362,13 @@ class Site extends CI_Controller
                 $config_r['quality']    = 100;
                 //end of configs
 
-                $this->load->library('image_lib', $config_r); 
+                $this->load->library('image_lib', $config_r);
                 $this->image_lib->initialize($config_r);
                 if(!$this->image_lib->resize())
                 {
                     echo "Failed." . $this->image_lib->display_errors();
                     //return false;
-                }  
+                }
                 else
                 {
                     //print_r($this->image_lib->dest_image);
@@ -376,28 +376,28 @@ class Site extends CI_Controller
                     $image=$this->image_lib->dest_image;
                     //return false;
                 }
-                
+
 			}
-            
+
             if($image=="")
             {
             $image=$this->user_model->getuserimagebyid($id);
                // print_r($image);
                 $image=$image->image;
             }
-            
+
 			if($this->user_model->edit($id,$name,$email,$password,$accesslevel,$status,$socialid,$logintype,$image,$json,$firstname,$lastname,$phone,$billingaddress,$billingcity,$billingstate,$billingcountry,$billingpincode,$billingcontact,$shippingaddress,$shippingcity,$shippingstate,$shippingcountry,$shippingpincode,$shippingcontact,$shippingname,$currency,$credit,$companyname,$registrationno,$vatnumber,$country,$fax,$gender)==0)
 			$data['alerterror']="User Editing was unsuccesful";
 			else
 			$data['alertsuccess']="User edited Successfully.";
-			
+
 			$data['redirect']="site/viewusers";
 			//$data['other']="template=$template";
 			$this->load->view("redirect",$data);
-			
+
 		}
 	}
-	
+
 	function deleteuser()
 	{
 		$access = array("1");
@@ -464,7 +464,7 @@ $elements[4]->field="`fynx_cart`.`timestamp`";
 $elements[4]->sort="1";
 $elements[4]->header="Timestamp";
 $elements[4]->alias="timestamp";
-    
+
 $elements[5]=new stdClass();
 $elements[5]->field="`fynx_cart`.`size`";
 $elements[5]->sort="1";
@@ -532,7 +532,7 @@ $elements[3]->field="`fynx_wishlist`.`timestamp`";
 $elements[3]->sort="1";
 $elements[3]->header="Timestamp";
 $elements[3]->alias="timestamp";
-    
+
 $elements[4]=new stdClass();
 $elements[4]->field="`fynx_product`.`name`";
 $elements[4]->sort="1";
@@ -555,9 +555,9 @@ $orderorder="ASC";
 $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `fynx_wishlist` LEFT OUTER JOIN `fynx_product` ON `fynx_product`.`id`=`fynx_wishlist`.`product`","WHERE `fynx_wishlist`.`user`='$user'");
 $this->load->view("json",$data);
 }
-    
-    
-    
+
+
+
     public function viewcontact()
 {
 $access=array("1");
@@ -612,7 +612,7 @@ $maxrow=20;
 if($orderby=="")
 {
 $orderby="id";
-$orderorder="ASC";
+$orderorder="DESC";
 }
 $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `ngubackend_contact`");
 $this->load->view("json",$data);
@@ -626,7 +626,7 @@ $data["page"]="createcontact";
 $data["title"]="Create contact";
 $this->load->view("template",$data);
 }
-public function createcontactsubmit() 
+public function createcontactsubmit()
 {
 $access=array("1");
 $this->checkaccess($access);
@@ -743,7 +743,7 @@ $maxrow=20;
 if($orderby=="")
 {
 $orderby="id";
-$orderorder="ASC";
+$orderorder="DESC";
 }
 $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `ngubackend_subscribe`");
 $this->load->view("json",$data);
@@ -757,7 +757,7 @@ $data["page"]="createsubscribe";
 $data["title"]="Create subscribe";
 $this->load->view("template",$data);
 }
-public function createsubscribesubmit() 
+public function createsubscribesubmit()
 {
 $access=array("1");
 $this->checkaccess($access);
@@ -822,6 +822,412 @@ $access=array("1");
 $this->checkaccess($access);
 $this->subscribe_model->delete($this->input->get("id"));
 $data["redirect"]="site/viewsubscribe";
+$this->load->view("redirect",$data);
+}
+
+public function viewtestimonial()
+{
+$access=array("1");
+$this->checkaccess($access);
+$data["page"]="viewtestimonial";
+$data["base_url"]=site_url("site/viewtestimonialjson");
+$data["title"]="View testimonial";
+$this->load->view("template",$data);
+}
+function viewtestimonialjson()
+{
+$elements=array();
+$elements[0]=new stdClass();
+$elements[0]->field="`ngu_testimonial`.`id`";
+$elements[0]->sort="1";
+$elements[0]->header="Id";
+$elements[0]->alias="id";
+$elements[1]=new stdClass();
+$elements[1]->field="`ngu_testimonial`.`name`";
+$elements[1]->sort="1";
+$elements[1]->header="Name";
+$elements[1]->alias="name";
+$elements[2]=new stdClass();
+$elements[2]->field="`ngu_testimonial`.`testimonial`";
+$elements[2]->sort="1";
+$elements[2]->header="Testimonial";
+$elements[2]->alias="testimonial";
+$elements[3]=new stdClass();
+$elements[3]->field="`ngu_testimonial`.`designation`";
+$elements[3]->sort="1";
+$elements[3]->header="Designation";
+$elements[3]->alias="designation";
+$elements[4]=new stdClass();
+$elements[4]->field="`ngu_testimonial`.`company`";
+$elements[4]->sort="1";
+$elements[4]->header="Company";
+$elements[4]->alias="company";
+$search=$this->input->get_post("search");
+$pageno=$this->input->get_post("pageno");
+$orderby=$this->input->get_post("orderby");
+$orderorder=$this->input->get_post("orderorder");
+$maxrow=$this->input->get_post("maxrow");
+if($maxrow=="")
+{
+$maxrow=20;
+}
+if($orderby=="")
+{
+$orderby="id";
+$orderorder="ASC";
+}
+$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `ngu_testimonial`");
+$this->load->view("json",$data);
+}
+
+public function createtestimonial()
+{
+$access=array("1");
+$this->checkaccess($access);
+$data["page"]="createtestimonial";
+$data["title"]="Create testimonial";
+$this->load->view("template",$data);
+}
+public function createtestimonialsubmit()
+{
+$access=array("1");
+$this->checkaccess($access);
+$this->form_validation->set_rules("name","Name","trim");
+$this->form_validation->set_rules("testimonial","Testimonial","trim");
+$this->form_validation->set_rules("designation","Designation","trim");
+$this->form_validation->set_rules("company","Company","trim");
+if($this->form_validation->run()==FALSE)
+{
+$data["alerterror"]=validation_errors();
+$data["page"]="createtestimonial";
+$data["title"]="Create testimonial";
+$this->load->view("template",$data);
+}
+else
+{
+$name=$this->input->get_post("name");
+$testimonial=$this->input->get_post("testimonial");
+$designation=$this->input->get_post("designation");
+$company=$this->input->get_post("company");
+if($this->testimonial_model->create($name,$testimonial,$designation,$company)==0)
+$data["alerterror"]="New testimonial could not be created.";
+else
+$data["alertsuccess"]="testimonial created Successfully.";
+$data["redirect"]="site/viewtestimonial";
+$this->load->view("redirect",$data);
+}
+}
+public function edittestimonial()
+{
+$access=array("1");
+$this->checkaccess($access);
+$data["page"]="edittestimonial";
+$data["title"]="Edit testimonial";
+$data["before"]=$this->testimonial_model->beforeedit($this->input->get("id"));
+$this->load->view("template",$data);
+}
+public function edittestimonialsubmit()
+{
+$access=array("1");
+$this->checkaccess($access);
+$this->form_validation->set_rules("id","Id","trim");
+$this->form_validation->set_rules("name","Name","trim");
+$this->form_validation->set_rules("testimonial","Testimonial","trim");
+$this->form_validation->set_rules("designation","Designation","trim");
+$this->form_validation->set_rules("company","Company","trim");
+if($this->form_validation->run()==FALSE)
+{
+$data["alerterror"]=validation_errors();
+$data["page"]="edittestimonial";
+$data["title"]="Edit testimonial";
+$data["before"]=$this->testimonial_model->beforeedit($this->input->get("id"));
+$this->load->view("template",$data);
+}
+else
+{
+$id=$this->input->get_post("id");
+$name=$this->input->get_post("name");
+$testimonial=$this->input->get_post("testimonial");
+$designation=$this->input->get_post("designation");
+$company=$this->input->get_post("company");
+if($this->testimonial_model->edit($id,$name,$testimonial,$designation,$company)==0)
+$data["alerterror"]="New testimonial could not be Updated.";
+else
+$data["alertsuccess"]="testimonial Updated Successfully.";
+$data["redirect"]="site/viewtestimonial";
+$this->load->view("redirect",$data);
+}
+}
+public function deletetestimonial()
+{
+$access=array("1");
+$this->checkaccess($access);
+$this->testimonial_model->delete($this->input->get("id"));
+$data["redirect"]="site/viewtestimonial";
+$this->load->view("redirect",$data);
+}
+public function viewmedia()
+{
+$access=array("1");
+$this->checkaccess($access);
+$data["page"]="viewmedia";
+$data["base_url"]=site_url("site/viewmediajson");
+$data["title"]="View media";
+$this->load->view("template",$data);
+}
+function viewmediajson()
+{
+$elements=array();
+$elements[0]=new stdClass();
+$elements[0]->field="`ngu_media`.`id`";
+$elements[0]->sort="1";
+$elements[0]->header="Id";
+$elements[0]->alias="id";
+$elements[1]=new stdClass();
+$elements[1]->field="`ngu_media`.`order`";
+$elements[1]->sort="1";
+$elements[1]->header="Order";
+$elements[1]->alias="order";
+$elements[2]=new stdClass();
+$elements[2]->field="`ngu_media`.`name`";
+$elements[2]->sort="1";
+$elements[2]->header="Name";
+$elements[2]->alias="name";
+$elements[3]=new stdClass();
+$elements[3]->field="`ngu_media`.`image`";
+$elements[3]->sort="1";
+$elements[3]->header="Image";
+$elements[3]->alias="image";
+$search=$this->input->get_post("search");
+$pageno=$this->input->get_post("pageno");
+$orderby=$this->input->get_post("orderby");
+$orderorder=$this->input->get_post("orderorder");
+$maxrow=$this->input->get_post("maxrow");
+if($maxrow=="")
+{
+$maxrow=20;
+}
+if($orderby=="")
+{
+$orderby="id";
+$orderorder="ASC";
+}
+$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `ngu_media`");
+$this->load->view("json",$data);
+}
+
+public function createmedia()
+{
+$access=array("1");
+$this->checkaccess($access);
+$data["page"]="createmedia";
+$data["title"]="Create media";
+$this->load->view("template",$data);
+}
+public function createmediasubmit()
+{
+$access=array("1");
+$this->checkaccess($access);
+$this->form_validation->set_rules("order","Order","trim");
+$this->form_validation->set_rules("name","Name","trim");
+$this->form_validation->set_rules("image","Image","trim");
+if($this->form_validation->run()==FALSE)
+{
+$data["alerterror"]=validation_errors();
+$data["page"]="createmedia";
+$data["title"]="Create media";
+$this->load->view("template",$data);
+}
+else
+{
+$order=$this->input->get_post("order");
+$name=$this->input->get_post("name");
+$image=$this->input->get_post("image");
+if($this->media_model->create($order,$name,$image)==0)
+$data["alerterror"]="New media could not be created.";
+else
+$data["alertsuccess"]="media created Successfully.";
+$data["redirect"]="site/viewmedia";
+$this->load->view("redirect",$data);
+}
+}
+public function editmedia()
+{
+$access=array("1");
+$this->checkaccess($access);
+$data["page"]="editmedia";
+$data["title"]="Edit media";
+$data["before"]=$this->media_model->beforeedit($this->input->get("id"));
+$this->load->view("template",$data);
+}
+public function editmediasubmit()
+{
+$access=array("1");
+$this->checkaccess($access);
+$this->form_validation->set_rules("id","Id","trim");
+$this->form_validation->set_rules("order","Order","trim");
+$this->form_validation->set_rules("name","Name","trim");
+$this->form_validation->set_rules("image","Image","trim");
+if($this->form_validation->run()==FALSE)
+{
+$data["alerterror"]=validation_errors();
+$data["page"]="editmedia";
+$data["title"]="Edit media";
+$data["before"]=$this->media_model->beforeedit($this->input->get("id"));
+$this->load->view("template",$data);
+}
+else
+{
+$id=$this->input->get_post("id");
+$order=$this->input->get_post("order");
+$name=$this->input->get_post("name");
+$image=$this->input->get_post("image");
+if($this->media_model->edit($id,$order,$name,$image)==0)
+$data["alerterror"]="New media could not be Updated.";
+else
+$data["alertsuccess"]="media Updated Successfully.";
+$data["redirect"]="site/viewmedia";
+$this->load->view("redirect",$data);
+}
+}
+public function deletemedia()
+{
+$access=array("1");
+$this->checkaccess($access);
+$this->media_model->delete($this->input->get("id"));
+$data["redirect"]="site/viewmedia";
+$this->load->view("redirect",$data);
+}
+public function viewclient()
+{
+$access=array("1");
+$this->checkaccess($access);
+$data["page"]="viewclient";
+$data["base_url"]=site_url("site/viewclientjson");
+$data["title"]="View client";
+$this->load->view("template",$data);
+}
+function viewclientjson()
+{
+$elements=array();
+$elements[0]=new stdClass();
+$elements[0]->field="`ngu_client`.`id`";
+$elements[0]->sort="1";
+$elements[0]->header="Id";
+$elements[0]->alias="id";
+$elements[1]=new stdClass();
+$elements[1]->field="`ngu_client`.`order`";
+$elements[1]->sort="1";
+$elements[1]->header="Order";
+$elements[1]->alias="order";
+$elements[2]=new stdClass();
+$elements[2]->field="`ngu_client`.`name`";
+$elements[2]->sort="1";
+$elements[2]->header="Name";
+$elements[2]->alias="name";
+$elements[3]=new stdClass();
+$elements[3]->field="`ngu_client`.`image`";
+$elements[3]->sort="1";
+$elements[3]->header="Image";
+$elements[3]->alias="image";
+$search=$this->input->get_post("search");
+$pageno=$this->input->get_post("pageno");
+$orderby=$this->input->get_post("orderby");
+$orderorder=$this->input->get_post("orderorder");
+$maxrow=$this->input->get_post("maxrow");
+if($maxrow=="")
+{
+$maxrow=20;
+}
+if($orderby=="")
+{
+$orderby="id";
+$orderorder="ASC";
+}
+$data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `ngu_client`");
+$this->load->view("json",$data);
+}
+
+public function createclient()
+{
+$access=array("1");
+$this->checkaccess($access);
+$data["page"]="createclient";
+$data["title"]="Create client";
+$this->load->view("template",$data);
+}
+public function createclientsubmit()
+{
+$access=array("1");
+$this->checkaccess($access);
+$this->form_validation->set_rules("order","Order","trim");
+$this->form_validation->set_rules("name","Name","trim");
+$this->form_validation->set_rules("image","Image","trim");
+if($this->form_validation->run()==FALSE)
+{
+$data["alerterror"]=validation_errors();
+$data["page"]="createclient";
+$data["title"]="Create client";
+$this->load->view("template",$data);
+}
+else
+{
+$order=$this->input->get_post("order");
+$name=$this->input->get_post("name");
+$image=$this->input->get_post("image");
+if($this->client_model->create($order,$name,$image)==0)
+$data["alerterror"]="New client could not be created.";
+else
+$data["alertsuccess"]="client created Successfully.";
+$data["redirect"]="site/viewclient";
+$this->load->view("redirect",$data);
+}
+}
+public function editclient()
+{
+$access=array("1");
+$this->checkaccess($access);
+$data["page"]="editclient";
+$data["title"]="Edit client";
+$data["before"]=$this->client_model->beforeedit($this->input->get("id"));
+$this->load->view("template",$data);
+}
+public function editclientsubmit()
+{
+$access=array("1");
+$this->checkaccess($access);
+$this->form_validation->set_rules("id","Id","trim");
+$this->form_validation->set_rules("order","Order","trim");
+$this->form_validation->set_rules("name","Name","trim");
+$this->form_validation->set_rules("image","Image","trim");
+if($this->form_validation->run()==FALSE)
+{
+$data["alerterror"]=validation_errors();
+$data["page"]="editclient";
+$data["title"]="Edit client";
+$data["before"]=$this->client_model->beforeedit($this->input->get("id"));
+$this->load->view("template",$data);
+}
+else
+{
+$id=$this->input->get_post("id");
+$order=$this->input->get_post("order");
+$name=$this->input->get_post("name");
+$image=$this->input->get_post("image");
+if($this->client_model->edit($id,$order,$name,$image)==0)
+$data["alerterror"]="New client could not be Updated.";
+else
+$data["alertsuccess"]="client Updated Successfully.";
+$data["redirect"]="site/viewclient";
+$this->load->view("redirect",$data);
+}
+}
+public function deleteclient()
+{
+$access=array("1");
+$this->checkaccess($access);
+$this->client_model->delete($this->input->get("id"));
+$data["redirect"]="site/viewclient";
 $this->load->view("redirect",$data);
 }
 
