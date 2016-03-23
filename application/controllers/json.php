@@ -14,35 +14,35 @@ class Json extends CI_Controller
         $elements[0]->header = 'id';
         $elements[0]->alias = 'id';
 
-        $elements = array();
+
         $elements[1] = new stdClass();
         $elements[1]->field = '`ngubackend_contact`.`name`';
         $elements[1]->sort = '1';
         $elements[1]->header = 'name';
         $elements[1]->alias = 'name';
 
-        $elements = array();
+
         $elements[2] = new stdClass();
         $elements[2]->field = '`ngubackend_contact`.`email`';
         $elements[2]->sort = '1';
         $elements[2]->header = 'email';
         $elements[2]->alias = 'email';
 
-        $elements = array();
+
         $elements[3] = new stdClass();
         $elements[3]->field = '`ngubackend_contact`.`phone`';
         $elements[3]->sort = '1';
         $elements[3]->header = 'phone';
         $elements[3]->alias = 'phone';
 
-        $elements = array();
+
         $elements[4] = new stdClass();
         $elements[4]->field = '`ngubackend_contact`.`organization`';
         $elements[4]->sort = '1';
         $elements[4]->header = 'organization';
         $elements[4]->alias = 'organization';
 
-        $elements = array();
+
         $elements[5] = new stdClass();
         $elements[5]->field = '`ngubackend_contact`.`query`';
         $elements[5]->sort = '1';
@@ -78,7 +78,7 @@ class Json extends CI_Controller
         $elements[0]->header = 'id';
         $elements[0]->alias = 'id';
 
-        $elements = array();
+
         $elements[1] = new stdClass();
         $elements[1]->field = '`ngubackend_subscribe`.`email`';
         $elements[1]->sort = '1';
@@ -133,28 +133,26 @@ class Json extends CI_Controller
         $elements[0]->header = 'Id';
         $elements[0]->alias = 'id';
 
-        $elements = array();
+
         $elements[1] = new stdClass();
         $elements[1]->field = '`ngu_testimonial`.`name`';
         $elements[1]->sort = '1';
         $elements[1]->header = 'Name';
         $elements[1]->alias = 'name';
 
-        $elements = array();
+
         $elements[2] = new stdClass();
         $elements[2]->field = '`ngu_testimonial`.`testimonial`';
         $elements[2]->sort = '1';
         $elements[2]->header = 'Testimonial';
         $elements[2]->alias = 'testimonial';
 
-        $elements = array();
         $elements[3] = new stdClass();
         $elements[3]->field = '`ngu_testimonial`.`designation`';
         $elements[3]->sort = '1';
         $elements[3]->header = 'Designation';
         $elements[3]->alias = 'designation';
 
-        $elements = array();
         $elements[4] = new stdClass();
         $elements[4]->field = '`ngu_testimonial`.`company`';
         $elements[4]->sort = '1';
@@ -190,21 +188,21 @@ class Json extends CI_Controller
         $elements[0]->header = 'Id';
         $elements[0]->alias = 'id';
 
-        $elements = array();
+
         $elements[1] = new stdClass();
         $elements[1]->field = '`ngu_media`.`order`';
         $elements[1]->sort = '1';
         $elements[1]->header = 'Order';
         $elements[1]->alias = 'order';
 
-        $elements = array();
+
         $elements[2] = new stdClass();
         $elements[2]->field = '`ngu_media`.`name`';
         $elements[2]->sort = '1';
         $elements[2]->header = 'Name';
         $elements[2]->alias = 'name';
 
-        $elements = array();
+
         $elements[3] = new stdClass();
         $elements[3]->field = '`ngu_media`.`image`';
         $elements[3]->sort = '1';
@@ -240,21 +238,21 @@ class Json extends CI_Controller
         $elements[0]->header = 'Id';
         $elements[0]->alias = 'id';
 
-        $elements = array();
+
         $elements[1] = new stdClass();
         $elements[1]->field = '`ngu_client`.`order`';
         $elements[1]->sort = '1';
         $elements[1]->header = 'Order';
         $elements[1]->alias = 'order';
 
-        $elements = array();
+
         $elements[2] = new stdClass();
         $elements[2]->field = '`ngu_client`.`name`';
         $elements[2]->sort = '1';
         $elements[2]->header = 'Name';
         $elements[2]->alias = 'name';
 
-        $elements = array();
+
         $elements[3] = new stdClass();
         $elements[3]->field = '`ngu_client`.`image`';
         $elements[3]->sort = '1';
