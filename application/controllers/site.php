@@ -1042,7 +1042,16 @@ else
 {
 $order=$this->input->get_post("order");
 $name=$this->input->get_post("name");
-$image=$this->input->get_post("image");
+// $image=$this->input->get_post("image");
+$config['upload_path'] = './uploads/';
+				$config['allowed_types'] = 'gif|jpg|png';
+				$this->load->library('upload', $config);
+				$filename = 'image';
+				$image = '';
+				if ($this->upload->do_upload($filename)) {
+						$uploaddata = $this->upload->data();
+						$image = $uploaddata['file_name'];
+				}
 if($this->media_model->create($order,$name,$image)==0)
 $data["alerterror"]="New media could not be created.";
 else
@@ -1081,7 +1090,21 @@ else
 $id=$this->input->get_post("id");
 $order=$this->input->get_post("order");
 $name=$this->input->get_post("name");
-$image=$this->input->get_post("image");
+// $image=$this->input->get_post("image");
+	$config['upload_path'] = './uploads/';
+            $config['allowed_types'] = 'gif|jpg|png';
+            $this->load->library('upload', $config);
+            $filename = 'image';
+            $image = '';
+            if ($this->upload->do_upload($filename)) {
+                $uploaddata = $this->upload->data();
+                $image = $uploaddata['file_name'];
+            }
+            if ($image == '') {
+                $image = $this->media_model->getimagebyid($id);
+                    // print_r($image);
+                     $image = $image->image;
+            }
 if($this->media_model->edit($id,$order,$name,$image)==0)
 $data["alerterror"]="New media could not be Updated.";
 else
@@ -1174,7 +1197,16 @@ else
 {
 $order=$this->input->get_post("order");
 $name=$this->input->get_post("name");
-$image=$this->input->get_post("image");
+// $image=$this->input->get_post("image");
+$config['upload_path'] = './uploads/';
+				$config['allowed_types'] = 'gif|jpg|png';
+				$this->load->library('upload', $config);
+				$filename = 'image';
+				$image = '';
+				if ($this->upload->do_upload($filename)) {
+						$uploaddata = $this->upload->data();
+						$image = $uploaddata['file_name'];
+				}
 if($this->client_model->create($order,$name,$image)==0)
 $data["alerterror"]="New client could not be created.";
 else
@@ -1213,7 +1245,21 @@ else
 $id=$this->input->get_post("id");
 $order=$this->input->get_post("order");
 $name=$this->input->get_post("name");
-$image=$this->input->get_post("image");
+// $image=$this->input->get_post("image");
+$config['upload_path'] = './uploads/';
+					$config['allowed_types'] = 'gif|jpg|png';
+					$this->load->library('upload', $config);
+					$filename = 'image';
+					$image = '';
+					if ($this->upload->do_upload($filename)) {
+							$uploaddata = $this->upload->data();
+							$image = $uploaddata['file_name'];
+					}
+					if ($image == '') {
+							$image = $this->media_model->getimagebyid($id);
+									// print_r($image);
+									 $image = $image->image;
+					}
 if($this->client_model->edit($id,$order,$name,$image)==0)
 $data["alerterror"]="New client could not be Updated.";
 else

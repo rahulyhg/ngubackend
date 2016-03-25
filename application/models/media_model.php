@@ -26,7 +26,9 @@ return $query;
 }
 public function edit($id,$order,$name,$image)
 {
-$data=array("order" => $order,"name" => $name,"image" => $image);
+$data=array("order" => $order,"name" => $name);
+if($image != "")
+  $data['image']=$image;
 $this->db->where( "id", $id );
 $query=$this->db->update( "ngu_media", $data );
 return 1;
@@ -34,6 +36,12 @@ return 1;
 public function delete($id)
 {
 $query=$this->db->query("DELETE FROM `ngu_media` WHERE `id`='$id'");
+return $query;
+}
+
+public function getimagebyid($id)
+{
+$query=$this->db->query("SELECT `image` FROM `ngu_media` WHERE `id`='$id'")->row();
 return $query;
 }
 }
