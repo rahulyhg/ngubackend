@@ -70,22 +70,66 @@ public function subscribe($email){
    return $object;
     }
     else{
+      echo"test";
     $this->db->query("INSERT INTO `ngubackend_subscribe`(`email`) VALUE('$email')");
     $id=$this->db->insert_id();
 
     //send email for subscription
-         $this->load->library('email');
-         $this->email->from('vigwohlig@gmail.com', 'NGU');
-         $this->email->to($email);
-         $this->email->subject('Your NGU subscription');
+        //  $this->load->library('email');
+        //  $this->email->from('vigwohlig@gmail.com', 'NGU');
+        //  $this->email->to($email);
+        //  $this->email->subject('Your NGU subscription');
 
          $message = "<html><body><div id=':1fn' class='a3s adM' style='overflow: hidden;'>
          <p style='color:#000;font-family:Roboto;font-size:20px'>Thank You for subscribing to NGU.</p>
 
 </div></body></html>";
-         $this->email->message($message);
-         $this->email->send();
-         echo "mail sended".$email;
+
+if(!empty($email))
+{
+
+$url = 'https://api.sendgrid.com/';
+$user = 'poojathakare';
+$pass = 'wohlig123';
+$request =  $url.'api/mail.send.json';
+
+$json_string = array(
+
+'to' => array(
+'vinodwohlig@gmail.com', $email
+),
+'category' => 'test_category'
+);
+
+$params = array(
+'api_user'  => $user,
+'api_key'   => $pass,
+'x-smtpapi' => json_encode($json_string),
+'to'        => 'info@willnevergrowup.com',
+'subject'   => 'Your NGU subscription',
+'html'      => $message,
+'text'      => 'testttttttttt',
+'from'      => 'info@willnevergrowup.com',
+//  'from'      => 'info@willnevergrowup.com',
+);
+
+$session = curl_init($request);
+// Tell curl to use HTTP POST
+curl_setopt ($session, CURLOPT_POST, true);
+// Tell curl that this is the body of the POST
+curl_setopt ($session, CURLOPT_POSTFIELDS, $params);
+// Tell curl not to return headers, but do return the response
+curl_setopt($session, CURLOPT_HEADER, false);
+// Tell PHP not to use SSLv3 (instead opting for TLS)
+curl_setopt($session, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
+curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+// print everything out
+print_r($response);
+
+// obtain response
+}        //  $this->email->message($message);
+        //  $this->email->send();
+        //  echo "mail sended".$email;
 
     $object = new stdClass();
     $object->value = true;

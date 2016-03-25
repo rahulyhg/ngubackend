@@ -118,10 +118,10 @@ class Json extends CI_Controller
         $data = json_decode(file_get_contents('php://input'), true);
         $name = $data['name'];
         $phone = $data['phone'];
-        $email = 'vinodwohlig@gmail.com';
+        // $email = 'vinodwohlig@gmail.com';
         $organization = $data['organization'];
-        $query = $data['query'];
-        $data['message'] = $this->contact_model->contactSubmit($name, $phone, $email, $organization, $query);
+        $qu = $data['query'];
+        $data['message'] = $this->contact_model->contactSubmit($name, $phone, $organization, $qu);
         $this->load->view('json', $data);
     }
     public function getalltestimonial()
