@@ -72,48 +72,8 @@ public function contactSubmit($name,$phone,$organization,$qu){
        </p>
 
 </div></body></html>";
-$url = 'https://api.sendgrid.com/';
-$user = 'poojathakare';
-$pass = 'wohlig123';
-$request =  $url.'api/mail.send.json';
+    $this->email_model->emailer($message,'Contact Us','pooja.wohlig@gmail.com','Never Grow Up');
 
-$json_string = array(
-
-  'to' => array(
-    'info@willnevergrowup.com'
-  ),
-  'category' => 'test_category'
-);
-
-
-$params = array(
-   'api_user'  => $user,
-   'api_key'   => $pass,
-   'x-smtpapi' => json_encode($json_string),
-   'to'        => 'info@willnevergrowup.com',
-   'subject'   => 'Contact Form Submission',
-   'html'      => $message,
-   'text'      => 'testttttttttt',
-   'from'      => 'info@willnevergrowup.com',
-  //  'from'      => 'info@willnevergrowup.com',
- );
-
-$session = curl_init($request);
-// Tell curl to use HTTP POST
-curl_setopt ($session, CURLOPT_POST, true);
-// Tell curl that this is the body of the POST
-curl_setopt ($session, CURLOPT_POSTFIELDS, $params);
-// Tell curl not to return headers, but do return the response
-curl_setopt($session, CURLOPT_HEADER, false);
-// Tell PHP not to use SSLv3 (instead opting for TLS)
-curl_setopt($session, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
-curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
-// print everything out
-print_r($response);
-
-// obtain response
-//$response = curl_exec($session);
-curl_close($session);
     if(!empty($query))
     {
 
