@@ -15,7 +15,7 @@
 <div class="row">
 <div class="col s12 m6">
 <label>Testimonial</label>
-<textarea name="testimonial" placeholder="Enter text ..."><?php echo set_value( 'testimonial',$before->testimonial);?></textarea>
+<textarea name="testimonial" id="some-textarea" placeholder="Enter text ..."><?php echo set_value( 'testimonial',$before->testimonial);?></textarea>
 </div>
 </div>
 <div class="row">

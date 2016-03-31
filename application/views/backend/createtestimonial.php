@@ -11,7 +11,7 @@
 </div>
 <div class="row">
 <div class="input-field col s12">
-<textarea name="testimonial" class="materialize-textarea" length="400"><?php echo set_value( 'testimonial');?></textarea>
+<textarea name="testimonial" id="some-textarea" class="materialize-textarea" length="400"><?php echo set_value( 'testimonial');?></textarea>
 <label>Testimonial</label>
 </div>
 </div>
