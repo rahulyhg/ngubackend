@@ -74,45 +74,33 @@ public function subscribe($email){
     $this->db->query("INSERT INTO `ngubackend_subscribe`(`email`) VALUE('$email')");
     $id=$this->db->insert_id();
 
-    //send email for subscription
-        //  $this->load->library('email');
-        //  $this->email->from('vigwohlig@gmail.com', 'NGU');
-        //  $this->email->to($email);
-        //  $this->email->subject('Your NGU subscription');
-
-         $message = "<html><body><div id=':1fn' class='a3s adM' style='overflow: hidden;'>
-         <p style='color:#000;font-family:Roboto;font-size:20px'>Thank You for subscribing to NGU.</p>
+           $message = "<html><body><div id=':1fn' class='a3s adM' style='overflow: hidden;'>
+       <p style='color:#000;font-family:Roboto;font-size:14px'>
+     Email : $email <br/>
+       </p>
 
 </div></body></html>";
-
-if(!empty($email))
-{
-
-$url = 'https://api.sendgrid.com/';
-$user = 'poojathakare';
-$pass = 'wohlig123';
-$request =  $url.'api/mail.send.json';
-
-$json_string = array(
-
-'to' => array(
-'vinodwohlig@gmail.com', $email
-),
-'category' => 'test_category'
-);
+        $query=$this->db->query("SELECT * FROM `emailer`")->row();
+        $username=$query->username;
+        $password=$query->password;
+        $url = 'https://api.sendgrid.com/';
+        $user = $username;
+        $pass = $password;
 
 $params = array(
-'api_user'  => $user,
-'api_key'   => $pass,
-'x-smtpapi' => json_encode($json_string),
-'to'        => 'info@willnevergrowup.com',
-'subject'   => 'Your NGU subscription',
-'html'      => $message,
-'text'      => 'testttttttttt',
-'from'      => 'info@willnevergrowup.com',
-//  'from'      => 'info@willnevergrowup.com',
-);
+    'api_user'  => $user,
+    'api_key'   => $pass,
+//    'to'        => 'info@willnevergrowup.com',
+    'to'        => 'pooja.wohlig@gmail.com',
+    'subject'   => 'Contact Us',
+    'html'      => $message,
+    'text'      => 'Contact Us Details',
+    'from'      => 'jay@wohlig.com'
+  );
 
+$request =  $url.'api/mail.send.json';
+
+// Generate curl request
 $session = curl_init($request);
 // Tell curl to use HTTP POST
 curl_setopt ($session, CURLOPT_POST, true);
@@ -121,10 +109,21 @@ curl_setopt ($session, CURLOPT_POSTFIELDS, $params);
 // Tell curl not to return headers, but do return the response
 curl_setopt($session, CURLOPT_HEADER, false);
 // Tell PHP not to use SSLv3 (instead opting for TLS)
-curl_setopt($session, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
+//curl_setopt($session, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
+
+//Turn off SSL
+curl_setopt($session, CURLOPT_SSL_VERIFYPEER, false);//New line
+curl_setopt($session, CURLOPT_SSL_VERIFYHOST, false);//New line
+
 curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+
+// obtain response
+$response = curl_exec($session);
+
 // print everything out
-print_r($response);
+////var_dump($response,curl_error($session),curl_getinfo($session));
+//print_r($response);
+curl_close($session);
 
 // obtain response
 }        //  $this->email->message($message);
