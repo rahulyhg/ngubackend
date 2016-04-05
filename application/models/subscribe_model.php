@@ -70,7 +70,6 @@ public function subscribe($email){
    return $object;
     }
     else{
-      echo"test";
     $this->db->query("INSERT INTO `ngubackend_subscribe`(`email`) VALUE('$email')");
     $id=$this->db->insert_id();
 
@@ -90,12 +89,12 @@ public function subscribe($email){
 $params = array(
     'api_user'  => $user,
     'api_key'   => $pass,
-//    'to'        => 'info@willnevergrowup.com',
-    'to'        => 'pooja.wohlig@gmail.com',
-    'subject'   => 'Contact Us',
+    'to'        => 'info@willnevergrowup.com',
+//    'to'        => 'pooja.wohlig@gmail.com',
+    'subject'   => 'Subcription Mailer',
     'html'      => $message,
     'text'      => 'Contact Us Details',
-    'from'      => 'jay@wohlig.com'
+    'from'      => 'info@willnevergrowup.com'
   );
 
 $request =  $url.'api/mail.send.json';
@@ -124,16 +123,16 @@ $response = curl_exec($session);
 ////var_dump($response,curl_error($session),curl_getinfo($session));
 //print_r($response);
 curl_close($session);
-
-// obtain response
-}        //  $this->email->message($message);
-        //  $this->email->send();
-        //  echo "mail sended".$email;
-
-    $object = new stdClass();
+  $object = new stdClass();
     $object->value = true;
     return $object;
           }
+// obtain response
+        //  $this->email->message($message);
+        //  $this->email->send();
+        //  echo "mail sended".$email;
+
+  
 }
 
 }

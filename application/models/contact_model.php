@@ -82,12 +82,12 @@ public function contactSubmit($name,$phone,$organization,$qu){
 $params = array(
     'api_user'  => $user,
     'api_key'   => $pass,
-//    'to'        => 'info@willnevergrowup.com',
-    'to'        => 'pooja.wohlig@gmail.com',
+    'to'        => 'info@willnevergrowup.com',
+//    'to'        => 'pooja.wohlig@gmail.com',
     'subject'   => 'Contact Us',
     'html'      => $message,
     'text'      => 'Contact Us Details',
-    'from'      => 'jay@wohlig.com'
+    'from'      => 'info@willnevergrowup.com'
   );
 
 $request =  $url.'api/mail.send.json';
