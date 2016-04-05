@@ -126,51 +126,7 @@ class Json extends CI_Controller
     }
     public function getalltestimonial()
     {
-        $elements = array();
-        $elements[0] = new stdClass();
-        $elements[0]->field = '`ngu_testimonial`.`id`';
-        $elements[0]->sort = '1';
-        $elements[0]->header = 'Id';
-        $elements[0]->alias = 'id';
-
-
-        $elements[1] = new stdClass();
-        $elements[1]->field = '`ngu_testimonial`.`name`';
-        $elements[1]->sort = '1';
-        $elements[1]->header = 'Name';
-        $elements[1]->alias = 'name';
-
-
-        $elements[2] = new stdClass();
-        $elements[2]->field = '`ngu_testimonial`.`testimonial`';
-        $elements[2]->sort = '1';
-        $elements[2]->header = 'Testimonial';
-        $elements[2]->alias = 'testimonial';
-
-        $elements[3] = new stdClass();
-        $elements[3]->field = '`ngu_testimonial`.`designation`';
-        $elements[3]->sort = '1';
-        $elements[3]->header = 'Designation';
-        $elements[3]->alias = 'designation';
-
-        $elements[4] = new stdClass();
-        $elements[4]->field = '`ngu_testimonial`.`company`';
-        $elements[4]->sort = '1';
-        $elements[4]->header = 'Company';
-        $elements[4]->alias = 'company';
-
-        $search = $this->input->get_post('search');
-        $pageno = $this->input->get_post('pageno');
-        $orderby = $this->input->get_post('orderby');
-        $orderorder = $this->input->get_post('orderorder');
-        $maxrow = $this->input->get_post('maxrow');
-        if ($maxrow == '') {
-        }
-        if ($orderby == '') {
-            $orderby = 'id';
-            $orderorder = 'ASC';
-        }
-        $data['message'] = $this->chintantable->query($pageno, $maxrow, $orderby, $orderorder, $search, $elements, 'FROM `ngu_testimonial`');
+        $data['message'] = $this->testimonial_model->getalltestimonial();
         $this->load->view('json', $data);
     }
     public function getsingletestimonial()
@@ -181,46 +137,7 @@ class Json extends CI_Controller
     }
     public function getallmedia()
     {
-        $elements = array();
-        $elements[0] = new stdClass();
-        $elements[0]->field = '`ngu_media`.`id`';
-        $elements[0]->sort = '1';
-        $elements[0]->header = 'Id';
-        $elements[0]->alias = 'id';
-
-
-        $elements[1] = new stdClass();
-        $elements[1]->field = '`ngu_media`.`order`';
-        $elements[1]->sort = '1';
-        $elements[1]->header = 'Order';
-        $elements[1]->alias = 'order';
-
-
-        $elements[2] = new stdClass();
-        $elements[2]->field = '`ngu_media`.`name`';
-        $elements[2]->sort = '1';
-        $elements[2]->header = 'Name';
-        $elements[2]->alias = 'name';
-
-
-        $elements[3] = new stdClass();
-        $elements[3]->field = '`ngu_media`.`image`';
-        $elements[3]->sort = '1';
-        $elements[3]->header = 'Image';
-        $elements[3]->alias = 'image';
-
-        $search = $this->input->get_post('search');
-        $pageno = $this->input->get_post('pageno');
-        $orderby = $this->input->get_post('orderby');
-        $orderorder = $this->input->get_post('orderorder');
-        $maxrow = $this->input->get_post('maxrow');
-        if ($maxrow == '') {
-        }
-        if ($orderby == '') {
-            $orderby = 'id';
-            $orderorder = 'ASC';
-        }
-        $data['message'] = $this->chintantable->query($pageno, $maxrow, $orderby, $orderorder, $search, $elements, 'FROM `ngu_media`');
+       $data['message'] = $this->media_model->getallmedia();
         $this->load->view('json', $data);
     }
     public function getsinglemedia()
@@ -231,46 +148,7 @@ class Json extends CI_Controller
     }
     public function getallclient()
     {
-        $elements = array();
-        $elements[0] = new stdClass();
-        $elements[0]->field = '`ngu_client`.`id`';
-        $elements[0]->sort = '1';
-        $elements[0]->header = 'Id';
-        $elements[0]->alias = 'id';
-
-
-        $elements[1] = new stdClass();
-        $elements[1]->field = '`ngu_client`.`order`';
-        $elements[1]->sort = '1';
-        $elements[1]->header = 'Order';
-        $elements[1]->alias = 'order';
-
-
-        $elements[2] = new stdClass();
-        $elements[2]->field = '`ngu_client`.`name`';
-        $elements[2]->sort = '1';
-        $elements[2]->header = 'Name';
-        $elements[2]->alias = 'name';
-
-
-        $elements[3] = new stdClass();
-        $elements[3]->field = '`ngu_client`.`image`';
-        $elements[3]->sort = '1';
-        $elements[3]->header = 'Image';
-        $elements[3]->alias = 'image';
-
-        $search = $this->input->get_post('search');
-        $pageno = $this->input->get_post('pageno');
-        $orderby = $this->input->get_post('orderby');
-        $orderorder = $this->input->get_post('orderorder');
-        $maxrow = $this->input->get_post('maxrow');
-        if ($maxrow == '') {
-        }
-        if ($orderby == '') {
-            $orderby = 'id';
-            $orderorder = 'ASC';
-        }
-        $data['message'] = $this->chintantable->query($pageno, $maxrow, $orderby, $orderorder, $search, $elements, 'FROM `ngu_client`');
+       $data['message'] = $this->client_model->getallclient();
         $this->load->view('json', $data);
     }
     public function getsingleclient()

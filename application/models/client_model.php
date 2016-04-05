@@ -43,5 +43,10 @@ public function getimagebyid($id)
 $query=$this->db->query("SELECT `image` FROM `ngu_media` WHERE `id`='$id'")->row();
 return $query;
 }
+      public function getallclient()
+{
+$query=$this->db->query("SELECT * FROM `ngu_client` WHERE 1")->result();
+return $query;
+}
 }
 ?>

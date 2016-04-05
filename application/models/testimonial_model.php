@@ -36,5 +36,10 @@ public function delete($id)
 $query=$this->db->query("DELETE FROM `ngu_testimonial` WHERE `id`='$id'");
 return $query;
 }
+    public function getalltestimonial()
+{
+$query=$this->db->query("SELECT * FROM `ngu_testimonial` WHERE 1")->result();
+return $query;
+}
 }
 ?>

@@ -38,7 +38,11 @@ public function delete($id)
 $query=$this->db->query("DELETE FROM `ngu_media` WHERE `id`='$id'");
 return $query;
 }
-
+  public function getallmedia()
+{
+$query=$this->db->query("SELECT * FROM `ngu_media` WHERE 1")->result();
+return $query;
+}
 public function getimagebyid($id)
 {
 $query=$this->db->query("SELECT `image` FROM `ngu_media` WHERE `id`='$id'")->row();
