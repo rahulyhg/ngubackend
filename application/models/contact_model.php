@@ -46,6 +46,25 @@ public function getimagebyid($id)
 $query=$this->db->query("SELECT `image` FROM `ngubackend_contact` WHERE `id`='$id'")->row();
 return $query;
 }
+    public function exportcontactcsv()
+{
+$this->load->dbutil();
+		$query=$this->db->query("SELECT `id`, `name`, `phone`, `organization`, `query` FROM `ngubackend_contact` WHERE 1");
+
+       $content= $this->dbutil->csv_from_result($query);
+        //$data = 'Some file data';
+$timestamp=new DateTime();
+        $timestamp=$timestamp->format('Y-m-d_H.i.s');
+        if ( ! write_file("./uploads/contactfile_$timestamp.csv", $content))
+        {
+             echo 'Unable to write the file';
+        }
+        else
+        {
+            redirect(base_url("uploads/contactfile_$timestamp.csv"), 'refresh');
+             echo 'File written!';
+        }
+}
 public function getdropdown()
 {
 $query=$this->db->query("SELECT * FROM `ngubackend_contact` ORDER BY `id`
@@ -82,8 +101,8 @@ public function contactSubmit($name,$phone,$organization,$qu){
 $params = array(
     'api_user'  => $user,
     'api_key'   => $pass,
-    'to'        => 'info@willnevergrowup.com',
-//    'to'        => 'pooja.wohlig@gmail.com',
+//    'to'        => 'info@willnevergrowup.com',
+    'to'        => 'pooja.wohlig@gmail.com',
     'subject'   => 'Contact Us',
     'html'      => $message,
     'text'      => 'Contact Us Details',

@@ -1192,6 +1192,22 @@ $this->load->view("redirect",$data);
         $data['title'] = 'View media';
         $this->load->view('template', $data);
     }
+      public function exportsubscribecsv()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+		$this->subscribe_model->exportsubscribecsv();
+        $data['redirect']="site/viewsubscribe";
+        $this->load->view("redirect",$data);
+	} 
+    public function exportcontactcsv()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+		$this->contact_model->exportcontactcsv();
+        $data['redirect']="site/viewcontact";
+        $this->load->view("redirect",$data);
+	}
     public function viewmediajson()
     {
         $elements = array();

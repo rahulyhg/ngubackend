@@ -19,6 +19,25 @@ $this->db->where("id",$id);
 $query=$this->db->get("ngubackend_subscribe")->row();
 return $query;
 }
+      function exportsubscribecsv()
+	{
+		$this->load->dbutil();
+		$query=$this->db->query("SELECT * FROM `ngubackend_subscribe`");
+
+       $content= $this->dbutil->csv_from_result($query);
+        //$data = 'Some file data';
+$timestamp=new DateTime();
+        $timestamp=$timestamp->format('Y-m-d_H.i.s');
+        if ( ! write_file("./uploads/subscribefile_$timestamp.csv", $content))
+        {
+             echo 'Unable to write the file';
+        }
+        else
+        {
+            redirect(base_url("uploads/subscribefile_$timestamp.csv"), 'refresh');
+             echo 'File written!';
+        }
+	}
 function getsinglesubscribe($id){
 $this->db->where("id",$id);
 $query=$this->db->get("ngubackend_subscribe")->row();

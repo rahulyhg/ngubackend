@@ -16,7 +16,7 @@
 </div>
 </div>
 <?php $this->chintantable->createpagination();?>
-<!-- <div class="createbuttonplacement"><a class="btn-floating btn-large waves-effect waves-light blue darken-4 tooltipped" href="<?php echo site_url("site/createsubscribe"); ?>"data-position="top" data-delay="50" data-tooltip="Create"><i class="material-icons">add</i></a></div> -->
+ <div class="createbuttonplacement"><a class="btn btn-primary waves-effect waves-light  blue darken-4 tooltipped" href="<?php echo site_url('site/exportsubscribecsv'); ?>"data-position="top" data-delay="50" target="_blank" data-tooltip="Excel Export">Excel Export</a></div> 
 </div>
 </div>
 <script>
