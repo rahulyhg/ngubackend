@@ -116,12 +116,19 @@ class Json extends CI_Controller
     public function contactSubmit()
     {
         $data = json_decode(file_get_contents('php://input'), true);
-        $name = $data['name'];
-        $phone = $data['phone'];
-        // $email = 'vinodwohlig@gmail.com';
-        $organization = $data['organization'];
-        $qu = $data['query'];
-        $data['message'] = $this->contact_model->contactSubmit($name, $phone, $organization, $qu);
+        if(!empty($data))
+        {
+            $name = $data['name'];
+            $phone = $data['phone'];
+            // $email = 'vinodwohlig@gmail.com';
+            $organization = $data['organization'];
+            $qu = $data['query'];
+            $data['message'] = $this->contact_model->contactSubmit($name, $phone, $organization, $qu);
+        }
+        else{
+             $data['message'] =0;
+        }
+        
         $this->load->view('json', $data);
     }
     public function getalltestimonial()

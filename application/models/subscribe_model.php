@@ -22,7 +22,7 @@ return $query;
       function exportsubscribecsv()
 	{
 		$this->load->dbutil();
-		$query=$this->db->query("SELECT * FROM `ngubackend_subscribe`");
+		$query=$this->db->query("SELECT * FROM `ngubackend_subscribe` ORDER BY `id` DESC");
 
        $content= $this->dbutil->csv_from_result($query);
         //$data = 'Some file data';

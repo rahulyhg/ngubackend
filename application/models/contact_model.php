@@ -49,7 +49,7 @@ return $query;
     public function exportcontactcsv()
 {
 $this->load->dbutil();
-		$query=$this->db->query("SELECT `id`, `name`, `phone`, `organization`, `query` FROM `ngubackend_contact` WHERE 1");
+		$query=$this->db->query("SELECT `id`, `name`, `phone`, `organization`, `query` FROM `ngubackend_contact` WHERE 1 ORDER BY `id` DESC");
 
        $content= $this->dbutil->csv_from_result($query);
         //$data = 'Some file data';
@@ -101,8 +101,8 @@ public function contactSubmit($name,$phone,$organization,$qu){
 $params = array(
     'api_user'  => $user,
     'api_key'   => $pass,
-//    'to'        => 'info@willnevergrowup.com',
-    'to'        => 'pooja.wohlig@gmail.com',
+    'to'        => 'info@willnevergrowup.com',
+//    'to'        => 'pooja.wohlig@gmail.com',
     'subject'   => 'Contact Us',
     'html'      => $message,
     'text'      => 'Contact Us Details',
