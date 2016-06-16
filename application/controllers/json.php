@@ -128,7 +128,7 @@ class Json extends CI_Controller
         else{
              $data['message'] =0;
         }
-        
+
         $this->load->view('json', $data);
     }
     public function getalltestimonial()
@@ -162,6 +162,11 @@ class Json extends CI_Controller
     {
         $id = $this->input->get_post('id');
         $data['message'] = $this->client_model->getsingleclient($id);
+        $this->load->view('json', $data);
+    }
+    public function getClientWithDescription()
+    {
+        $data['message'] = $this->client_model->getClientWithDescription($id);
         $this->load->view('json', $data);
     }
 }

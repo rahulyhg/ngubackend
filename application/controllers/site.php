@@ -1000,6 +1000,7 @@ public function createclient()
 $access=array("1");
 $this->checkaccess($access);
 $data["page"]="createclient";
+$data[ 'status' ] = $this->user_model->getstatusdropdown();
 $data["title"]="Create client";
 $this->load->view("template",$data);
 }
@@ -1013,6 +1014,7 @@ $this->form_validation->set_rules("image","Image","trim");
 if($this->form_validation->run()==FALSE)
 {
 $data["alerterror"]=validation_errors();
+$data[ 'status' ] = $this->user_model->getstatusdropdown();
 $data["page"]="createclient";
 $data["title"]="Create client";
 $this->load->view("template",$data);
@@ -1021,6 +1023,8 @@ else
 {
 $order=$this->input->get_post("order");
 $name=$this->input->get_post("name");
+$status=$this->input->get_post("status");
+$content=$this->input->get_post("content");
 // $image=$this->input->get_post("image");
 $config['upload_path'] = './uploads/';
 				$config['allowed_types'] = 'gif|jpg|png';
@@ -1031,7 +1035,7 @@ $config['upload_path'] = './uploads/';
 						$uploaddata = $this->upload->data();
 						$image = $uploaddata['file_name'];
 				}
-if($this->client_model->create($order,$name,$image)==0)
+if($this->client_model->create($order,$name,$image,$status,$content)==0)
 $data["alerterror"]="New client could not be created.";
 else
 $data["alertsuccess"]="client created Successfully.";
@@ -1045,6 +1049,7 @@ $access=array("1");
 $this->checkaccess($access);
 $data["page"]="editclient";
 $data["title"]="Edit client";
+$data[ 'status' ] = $this->user_model->getstatusdropdown();
 $data["before"]=$this->client_model->beforeedit($this->input->get("id"));
 $this->load->view("template",$data);
 }
@@ -1061,6 +1066,7 @@ if($this->form_validation->run()==FALSE)
 $data["alerterror"]=validation_errors();
 $data["page"]="editclient";
 $data["title"]="Edit client";
+$data[ 'status' ] = $this->user_model->getstatusdropdown();
 $data["before"]=$this->client_model->beforeedit($this->input->get("id"));
 $this->load->view("template",$data);
 }
@@ -1069,6 +1075,8 @@ else
 $id=$this->input->get_post("id");
 $order=$this->input->get_post("order");
 $name=$this->input->get_post("name");
+$status=$this->input->get_post("status");
+$content=$this->input->get_post("content");
 // $image=$this->input->get_post("image");
 $config['upload_path'] = './uploads/';
 					$config['allowed_types'] = 'gif|jpg|png';
@@ -1084,7 +1092,7 @@ $config['upload_path'] = './uploads/';
 									// print_r($image);
 									 $image = $image->image;
 					}
-if($this->client_model->edit($id,$order,$name,$image)==0)
+if($this->client_model->edit($id,$order,$name,$image,$status,$content)==0)
 $data["alerterror"]="New client could not be Updated.";
 else
 $data["alertsuccess"]="client Updated Successfully.";
@@ -1199,7 +1207,7 @@ $this->load->view("redirect",$data);
 		$this->subscribe_model->exportsubscribecsv();
         $data['redirect']="site/viewsubscribe";
         $this->load->view("redirect",$data);
-	} 
+	}
     public function exportcontactcsv()
 	{
 		$access = array("1");

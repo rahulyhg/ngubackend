@@ -3,9 +3,9 @@ if ( !defined( "BASEPATH" ) )
 exit( "No direct script access allowed" );
 class client_model extends CI_Model
 {
-public function create($order,$name,$image)
+public function create($order,$name,$image,$status,$content)
 {
-$data=array("order" => $order,"name" => $name,"image" => $image);
+$data=array("order" => $order,"name" => $name,"image" => $image,"status" => $status,"content" => $content);
 $query=$this->db->insert( "ngu_client", $data );
 $id=$this->db->insert_id();
 if(!$query)
@@ -24,9 +24,9 @@ $this->db->where("id",$id);
 $query=$this->db->get("ngu_client")->row();
 return $query;
 }
-public function edit($id,$order,$name,$image)
+public function edit($id,$order,$name,$image,$status,$content)
 {
-$data=array("order" => $order,"name" => $name);
+$data=array("order" => $order,"name" => $name,"status" => $status,"content" => $content);
 if($image != "")
   $data['image']=$image;
 $this->db->where( "id", $id );
@@ -46,6 +46,11 @@ return $query;
       public function getallclient()
 {
 $query=$this->db->query("SELECT * FROM `ngu_client` WHERE 1")->result();
+return $query;
+}
+      public function getClientWithDescription()
+{
+$query=$this->db->query("SELECT `id`, `order`, `name`, `image`, `status`, `content` FROM `ngu_client` WHERE `content` <>''")->result();
 return $query;
 }
 }
