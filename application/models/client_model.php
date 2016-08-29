@@ -50,8 +50,13 @@ return $query;
 }
       public function getClientWithDescription()
 {
-$query=$this->db->query("SELECT `id`, `order`, `name`, `image`, `status`, `content` FROM `ngu_client` WHERE `content` <>''")->result();
-return $query;
+$query=$this->db->query("SELECT `id`, `order`, `name`, `image`, `content` FROM `ngu_client` WHERE `content` <>'' AND `status`=2")->result();
+if($query){
+  return $query;
+}
+else{
+  return 0;
+}
 }
 }
 ?>
