@@ -1079,7 +1079,7 @@ $status=$this->input->get_post("status");
 $content=$this->input->get_post("content");
 // $image=$this->input->get_post("image");
 $config['upload_path'] = './uploads/';
-					$config['allowed_types'] = 'gif|jpg|png';
+					$config['allowed_types'] = 'gif|jpg|png|jpeg';
 					$this->load->library('upload', $config);
 					$filename = 'image';
 					$image = '';
