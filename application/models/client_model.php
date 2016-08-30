@@ -26,9 +26,8 @@ return $query;
 }
 public function edit($id,$order,$name,$image,$status,$content)
 {
-$data=array("order" => $order,"name" => $name,"status" => $status,"content" => $content);
-if($image != "")
-  $data['image']=$image;
+$data=array("order" => $order,"name" => $name,"status" => $status,"content" => $content,"image" => $image);
+
 $this->db->where( "id", $id );
 $query=$this->db->update( "ngu_client", $data );
 return 1;
@@ -40,7 +39,7 @@ return $query;
 }
 public function getimagebyid($id)
 {
-$query=$this->db->query("SELECT `image` FROM `ngu_media` WHERE `id`='$id'")->row();
+$query=$this->db->query("SELECT `image` FROM `ngu_client` WHERE `id`='$id'")->row();
 return $query;
 }
       public function getallclient()
