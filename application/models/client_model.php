@@ -49,7 +49,7 @@ return $query;
 }
       public function getClientWithDescription()
 {
-$query=$this->db->query("SELECT `id`, `order`, `name`, `image`, `content` FROM `ngu_client` WHERE `content` <>'' AND `status`=2")->result();
+$query=$this->db->query("SELECT `id`, `order`, `name`, `image`, `content` FROM `ngu_client` WHERE `content` <>'' AND `status`=2 ORDER BY `order`")->result();
 if($query){
   return $query;
 }
