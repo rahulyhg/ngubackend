@@ -44,7 +44,7 @@ return $query;
 }
       public function getallclient()
 {
-$query=$this->db->query("SELECT * FROM `ngu_client` WHERE 1")->result();
+$query=$this->db->query("SELECT * FROM `ngu_client` WHERE 1 ORDER BY `order` ASC")->result();
 return $query;
 }
       public function getClientWithDescription()
