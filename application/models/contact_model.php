@@ -91,51 +91,61 @@ public function contactSubmit($name,$phone,$organization,$qu){
        </p>
 
 </div></body></html>";
-        $query=$this->db->query("SELECT * FROM `emailer`")->row();
-        $username=$query->username;
-        $password=$query->password;
-        $url = 'https://api.sendgrid.com/';
-        $user = $username;
-        $pass = $password;
+//         $query=$this->db->query("SELECT * FROM `emailer`")->row();
+//         $username=$query->username;
+//         $password=$query->password;
+//         $url = 'https://api.sendgrid.com/';
+//         $user = $username;
+//         $pass = $password;
+// echo $user;
+// $params = array(
+//     'api_user'  => $user,
+//     'api_key'   => $pass,
+//     // 'to'        => 'info@willnevergrowup.com',
+//    'to'        => 'pooja@wohlig.com',
+//     'subject'   => 'Contact Us',
+//     'html'      => $message,
+//     'text'      => 'Contact Us Details',
+//     'from'      => 'info@willnevergrowup.com'
+//   );
 
-$params = array(
-    'api_user'  => $user,
-    'api_key'   => $pass,
-    'to'        => 'info@willnevergrowup.com',
-//    'to'        => 'pooja.wohlig@gmail.com',
-    'subject'   => 'Contact Us',
-    'html'      => $message,
-    'text'      => 'Contact Us Details',
-    'from'      => 'info@willnevergrowup.com'
-  );
+// $request =  $url.'api/mail.send.json';
 
-$request =  $url.'api/mail.send.json';
+// $session = curl_init($request);
+// curl_setopt ($session, CURLOPT_POST, true);
+// curl_setopt ($session, CURLOPT_POSTFIELDS, $params);
+// curl_setopt($session, CURLOPT_HEADER, false);
+// curl_setopt($session, CURLOPT_SSL_VERIFYPEER, false);//New line
+// curl_setopt($session, CURLOPT_SSL_VERIFYHOST, false);//New line
 
-// Generate curl request
-$session = curl_init($request);
-// Tell curl to use HTTP POST
-curl_setopt ($session, CURLOPT_POST, true);
-// Tell curl that this is the body of the POST
-curl_setopt ($session, CURLOPT_POSTFIELDS, $params);
-// Tell curl not to return headers, but do return the response
-curl_setopt($session, CURLOPT_HEADER, false);
-// Tell PHP not to use SSLv3 (instead opting for TLS)
-//curl_setopt($session, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
-
-//Turn off SSL
-curl_setopt($session, CURLOPT_SSL_VERIFYPEER, false);//New line
-curl_setopt($session, CURLOPT_SSL_VERIFYHOST, false);//New line
-
-curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
-
-// obtain response
-$response = curl_exec($session);
-
-// print everything out
-////var_dump($response,curl_error($session),curl_getinfo($session));
-//print_r($response);
-curl_close($session);
+// curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+// $response = curl_exec($session);
+// curl_close($session);
     
+       $url = 'https://api.sendgrid.com/';
+                $params = array(
+                        'api_user'  => base64_decode('cG9vamF3b2hsaWc='),
+                        'api_key'   => base64_decode('d29obGlnMTIz'),
+                        // 'to'        =>'info@willnevergrowup.com',
+                        'to'        =>'pooja@wohlig.com',
+                        'subject'   => 'Contact Us',
+                        'html'      => $message,
+                        'text'      => 'Will Never Grow Up',
+                        'from'      => 'info@willnevergrowup.com',
+                        'fromname'      => 'Will Never Grow Up',
+                    );
+                $request =  $url.'api/mail.send.json';
+                $session = curl_init($request);
+                curl_setopt ($session, CURLOPT_POST, true);
+                curl_setopt ($session, CURLOPT_POSTFIELDS, $params);
+                curl_setopt($session, CURLOPT_HEADER, false);
+                curl_setopt($session, CURLOPT_SSL_VERIFYPEER, false);//New line
+                curl_setopt($session, CURLOPT_SSL_VERIFYHOST, false);//New line
+                curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+                $response = curl_exec($session);
+                // print_r($response);
+                curl_close($session);
+
     if(!empty($query))
     {
 

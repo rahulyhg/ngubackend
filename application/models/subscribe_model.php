@@ -98,50 +98,72 @@ public function subscribe($email){
        </p>
 
 </div></body></html>";
-        $query=$this->db->query("SELECT * FROM `emailer`")->row();
-        $username=$query->username;
-        $password=$query->password;
-        $url = 'https://api.sendgrid.com/';
-        $user = $username;
-        $pass = $password;
+   $url = 'https://api.sendgrid.com/';
+                $params = array(
+                        'api_user'  => base64_decode('cG9vamF3b2hsaWc='),
+                        'api_key'   => base64_decode('d29obGlnMTIz'),
+                        'to'        =>'info@willnevergrowup.com',
+                        // 'to'        =>'pooja@wohlig.com',
+                        'subject'   => 'Subcription Mailer',
+                        'html'      => $message,
+                        'text'      => 'Will Never Grow Up',
+                        'from'      => 'info@willnevergrowup.com',
+                        'fromname'      => 'Will Never Grow Up',
+                    );
+                $request =  $url.'api/mail.send.json';
+                $session = curl_init($request);
+                curl_setopt ($session, CURLOPT_POST, true);
+                curl_setopt ($session, CURLOPT_POSTFIELDS, $params);
+                curl_setopt($session, CURLOPT_HEADER, false);
+                curl_setopt($session, CURLOPT_SSL_VERIFYPEER, false);//New line
+                curl_setopt($session, CURLOPT_SSL_VERIFYHOST, false);//New line
+                curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+                $response = curl_exec($session);
+                curl_close($session);
+//         $query=$this->db->query("SELECT * FROM `emailer`")->row();
+//         $username=$query->username;
+//         $password=$query->password;
+//         $url = 'https://api.sendgrid.com/';
+//         $user = $username;
+//         $pass = $password;
 
-$params = array(
-    'api_user'  => $user,
-    'api_key'   => $pass,
-    'to'        => 'info@willnevergrowup.com',
-//    'to'        => 'pooja.wohlig@gmail.com',
-    'subject'   => 'Subcription Mailer',
-    'html'      => $message,
-    'text'      => 'Contact Us Details',
-    'from'      => 'info@willnevergrowup.com'
-  );
+// $params = array(
+//     'api_user'  => $user,
+//     'api_key'   => $pass,
+//     'to'        => 'info@willnevergrowup.com',
+// //    'to'        => 'pooja.wohlig@gmail.com',
+//     'subject'   => 'Subcription Mailer',
+//     'html'      => $message,
+//     'text'      => 'Contact Us Details',
+//     'from'      => 'info@willnevergrowup.com'
+//   );
 
-$request =  $url.'api/mail.send.json';
+// $request =  $url.'api/mail.send.json';
 
-// Generate curl request
-$session = curl_init($request);
-// Tell curl to use HTTP POST
-curl_setopt ($session, CURLOPT_POST, true);
-// Tell curl that this is the body of the POST
-curl_setopt ($session, CURLOPT_POSTFIELDS, $params);
-// Tell curl not to return headers, but do return the response
-curl_setopt($session, CURLOPT_HEADER, false);
-// Tell PHP not to use SSLv3 (instead opting for TLS)
-//curl_setopt($session, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
+// // Generate curl request
+// $session = curl_init($request);
+// // Tell curl to use HTTP POST
+// curl_setopt ($session, CURLOPT_POST, true);
+// // Tell curl that this is the body of the POST
+// curl_setopt ($session, CURLOPT_POSTFIELDS, $params);
+// // Tell curl not to return headers, but do return the response
+// curl_setopt($session, CURLOPT_HEADER, false);
+// // Tell PHP not to use SSLv3 (instead opting for TLS)
+// //curl_setopt($session, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
 
-//Turn off SSL
-curl_setopt($session, CURLOPT_SSL_VERIFYPEER, false);//New line
-curl_setopt($session, CURLOPT_SSL_VERIFYHOST, false);//New line
+// //Turn off SSL
+// curl_setopt($session, CURLOPT_SSL_VERIFYPEER, false);//New line
+// curl_setopt($session, CURLOPT_SSL_VERIFYHOST, false);//New line
 
-curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+// curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
 
-// obtain response
-$response = curl_exec($session);
+// // obtain response
+// $response = curl_exec($session);
 
-// print everything out
-////var_dump($response,curl_error($session),curl_getinfo($session));
-//print_r($response);
-curl_close($session);
+// // print everything out
+// ////var_dump($response,curl_error($session),curl_getinfo($session));
+// //print_r($response);
+// curl_close($session);
   $object = new stdClass();
     $object->value = true;
     return $object;
