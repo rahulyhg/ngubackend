@@ -91,47 +91,23 @@ public function contactSubmit($name,$phone,$organization,$qu){
        </p>
 
 </div></body></html>";
-//         $query=$this->db->query("SELECT * FROM `emailer`")->row();
-//         $username=$query->username;
-//         $password=$query->password;
-//         $url = 'https://api.sendgrid.com/';
-//         $user = $username;
-//         $pass = $password;
-// echo $user;
-// $params = array(
-//     'api_user'  => $user,
-//     'api_key'   => $pass,
-//     // 'to'        => 'info@willnevergrowup.com',
-//    'to'        => 'pooja@wohlig.com',
-//     'subject'   => 'Contact Us',
-//     'html'      => $message,
-//     'text'      => 'Contact Us Details',
-//     'from'      => 'info@willnevergrowup.com'
-//   );
+          $url = 'https://api.sendgrid.com/';
+           $params = array(
+                        'api_user'  => base64_decode('dGFnYm9zcw=='),
+                        'api_key'   => base64_decode('dGFnYm9zc0AxMjM0NQ=='),
+                        'to'        =>'info@willnevergrowup.com',
+                        //  'to'        =>'pooja@wohlig.com',
+                        'subject'   => 'Enquiry for HappynessQuotient.com',
+                        'html'      =>"<html><body><div id=':1fn' class='a3s adM' style='overflow: hidden;'>
+       <p style='color:#000;font-family:Roboto;font-size:14px'>Name : $name <br/>
+     Phone : $phone <br/>
+     Organization : $organization <br/>
+     Query : $qu
+       </p>
 
-// $request =  $url.'api/mail.send.json';
-
-// $session = curl_init($request);
-// curl_setopt ($session, CURLOPT_POST, true);
-// curl_setopt ($session, CURLOPT_POSTFIELDS, $params);
-// curl_setopt($session, CURLOPT_HEADER, false);
-// curl_setopt($session, CURLOPT_SSL_VERIFYPEER, false);//New line
-// curl_setopt($session, CURLOPT_SSL_VERIFYHOST, false);//New line
-
-// curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
-// $response = curl_exec($session);
-// curl_close($session);
-    
-       $url = 'https://api.sendgrid.com/';
-                $params = array(
-                        'api_user'  => base64_decode('cG9vamF3b2hsaWc='),
-                        'api_key'   => base64_decode('d29obGlnMTIz'),
-                        // 'to'        =>'info@willnevergrowup.com',
-                        'to'        =>'pooja@wohlig.com',
-                        'subject'   => 'Contact Us',
-                        'html'      => $message,
+</div></body></html>",
                         'text'      => 'Will Never Grow Up',
-                        'from'      => 'info@willnevergrowup.com',
+                        'from'      => 'info@willnevergrowup.in',
                         'fromname'      => 'Will Never Grow Up',
                     );
                 $request =  $url.'api/mail.send.json';
@@ -143,9 +119,7 @@ public function contactSubmit($name,$phone,$organization,$qu){
                 curl_setopt($session, CURLOPT_SSL_VERIFYHOST, false);//New line
                 curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
                 $response = curl_exec($session);
-                // print_r($response);
                 curl_close($session);
-
     if(!empty($query))
     {
 

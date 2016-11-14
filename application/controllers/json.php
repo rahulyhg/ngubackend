@@ -169,13 +169,9 @@ class Json extends CI_Controller
         $data['message'] = $this->client_model->getClientWithDescription($id);
         $this->load->view('json', $data);
     }
+    // FORM
     public function sendMail()
     {
-        // $data = json_decode(file_get_contents('php://input'), true);
-                // $name = $data['name'];
-                // $email = $data['email'];
-                // $phone = $data['phone'];
-                // $comment = $data['comment'];
                  $name = $this->input->get_post('name');
                  $email = $this->input->get_post('email');
                  $phone = $this->input->get_post('phone');
@@ -185,7 +181,7 @@ class Json extends CI_Controller
                         'api_user'  => base64_decode('dGFnYm9zcw=='),
                         'api_key'   => base64_decode('dGFnYm9zc0AxMjM0NQ=='),
                         'to'        =>'asifupadhye@gmail.com',
-                        // 'x-smtpapi' => json_encode($json_string),
+                    //    'to'        =>'sukshawohlig@gmail.com',
                         'subject'   => 'Enquiry for HappynessQuotient.com',
                         'html'      => "<p>Name: ".$name."</p><p>Email: ".$email."</p><p>Organization: ".comment."</p><p>Telephone: ".$phone."</p>",
                         'text'      => 'Will Never Grow Up',
@@ -208,7 +204,8 @@ class Json extends CI_Controller
                 $params = array(
                         'api_user'  => base64_decode('dGFnYm9zcw=='),
                         'api_key'   => base64_decode('dGFnYm9zc0AxMjM0NQ=='),
-                        'to'        =>'master@willnevergrowup.in',
+                        'to'        =>'asif@willnevergrowup.com',
+                        //  'to'        =>'pooja.wohlig@gmail.com',
                         'subject'   => 'Enquiry for HappynessQuotient.com',
                         'html'      => "<p>Name: ".$name."</p><p>Email: ".$email."</p><p>Organization: ".comment."</p><p>Telephone: ".$phone."</p>",
                         'text'      => 'Will Never Grow Up',
@@ -232,6 +229,7 @@ class Json extends CI_Controller
                         'api_user'  => base64_decode('dGFnYm9zcw=='),
                         'api_key'   => base64_decode('dGFnYm9zc0AxMjM0NQ=='),
                         'to'        =>'info@willnevergrowup.com',
+                        //  'to'        =>'chaitalee.wohlig@gmail.com',
                         'subject'   => 'Enquiry for HappynessQuotient.com',
                         'html'      => "<p>Name: ".$name."</p><p>Email: ".$email."</p><p>Organization: ".comment."</p><p>Telephone: ".$phone."</p>",
                         'text'      => 'Will Never Grow Up',
@@ -249,31 +247,9 @@ class Json extends CI_Controller
                 $response = curl_exec($session);
                 curl_close($session);
 
-
-                // send another mail
-                // $params = array(
-                //         'api_user'  => base64_decode('dGFnYm9zcw=='),
-                //         'api_key'   => base64_decode('dGFnYm9zc0AxMjM0NQ=='),
-                //         'to'        =>'pooja@wohlig.com',
-                //         'subject'   => 'Enquiry for HappynessQuotient.com',
-                //         'html'      => "<p>Name: ".$name."</p><p>Email: ".$email."</p><p>Organization: ".comment."</p><p>Telephone: ".$phone."</p>",
-                //         'text'      => 'Will Never Grow Up',
-                //         'from'      => 'hq@willnevergrowup.in',
-                //         'fromname'      => 'Happyness Quotient',
-                //     );
-                // $request =  $url.'api/mail.send.json';
-                // $session = curl_init($request);
-                // curl_setopt ($session, CURLOPT_POST, true);
-                // curl_setopt ($session, CURLOPT_POSTFIELDS, $params);
-                // curl_setopt($session, CURLOPT_HEADER, false);
-                // curl_setopt($session, CURLOPT_SSL_VERIFYPEER, false);//New line
-                // curl_setopt($session, CURLOPT_SSL_VERIFYHOST, false);//New line
-                // curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
-                // $response = curl_exec($session);
-                // curl_close($session);
-
       
     }
+    // SUBSCRIBE
     public function sendSubscribe()
     {
                  $email = $this->input->get_post('email');
@@ -282,6 +258,7 @@ class Json extends CI_Controller
                         'api_user'  => base64_decode('dGFnYm9zcw=='),
                         'api_key'   => base64_decode('dGFnYm9zc0AxMjM0NQ=='),
                         'to'        =>'asifupadhye@gmail.com',
+                        // 'to'        =>'sukshawohlig@gmail.com',
                         'subject'   => 'New Subscriber on HappynessQuotient.com​',
                         'html'      => "<p>Subscribe: ".$email."</p>",
                         'text'      => 'Will Never Grow Up',
@@ -304,6 +281,7 @@ class Json extends CI_Controller
                         'api_user'  => base64_decode('dGFnYm9zcw=='),
                         'api_key'   => base64_decode('dGFnYm9zc0AxMjM0NQ=='),
                         'to'        =>'info@willnevergrowup.com',
+                        // 'to'        =>'pooja.wohlig@gmail.com',
                         'subject'   => 'New Subscriber on HappynessQuotient.com​',
                         'html'      => "<p>Subscribe: ".$email."</p>",
                         'text'      => 'Will Never Grow Up',
@@ -321,33 +299,11 @@ class Json extends CI_Controller
                 $response = curl_exec($session);
                 curl_close($session);
 
-
-
-                //   $params = array(
-                //         'api_user'  => base64_decode('dGFnYm9zcw=='),
-                //         'api_key'   => base64_decode('dGFnYm9zc0AxMjM0NQ=='),
-                //         'to'        =>'pooja@wohlig.com',
-                //         'subject'   => 'New Subscriber on HappynessQuotient.com​',
-                //         'html'      => "<p>Subscribe: ".$email."</p>",
-                //         'text'      => 'Will Never Grow Up',
-                //         'from'      => 'hq@willnevergrowup.in',
-                //         'fromname'      => 'Happyness Quotient',
-                //     );
-                // $request =  $url.'api/mail.send.json';
-                // $session = curl_init($request);
-                // curl_setopt ($session, CURLOPT_POST, true);
-                // curl_setopt ($session, CURLOPT_POSTFIELDS, $params);
-                // curl_setopt($session, CURLOPT_HEADER, false);
-                // curl_setopt($session, CURLOPT_SSL_VERIFYPEER, false);//New line
-                // curl_setopt($session, CURLOPT_SSL_VERIFYHOST, false);//New line
-                // curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
-                // $response = curl_exec($session);
-                // curl_close($session);
-
                   $params = array(
                         'api_user'  => base64_decode('dGFnYm9zcw=='),
                         'api_key'   => base64_decode('dGFnYm9zc0AxMjM0NQ=='),
-                        'to'        =>'master@willnevergrowup.in',
+                        // 'to'        =>'chaitalee.wohlig@gmail.com',
+                        'to'        =>'asif@willnevergrowup.com',
                         'subject'   => 'New Subscriber on HappynessQuotient.com​',
                         'html'      => "<p>Subscribe: ".$email."</p>",
                         'text'      => 'Will Never Grow Up',
