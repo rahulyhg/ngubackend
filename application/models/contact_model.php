@@ -97,7 +97,7 @@ public function contactSubmit($name,$phone,$organization,$qu){
                         'api_key'   => base64_decode('dGFnYm9zc0AxMjM0NQ=='),
                         'to'        =>'info@willnevergrowup.com',
                         //  'to'        =>'pooja@wohlig.com',
-                        'subject'   => 'Enquiry for HappynessQuotient.com',
+                        'subject'   => 'Enquiry for WillNeverGrowUp.com',
                         'html'      =>"<html><body><div id=':1fn' class='a3s adM' style='overflow: hidden;'>
        <p style='color:#000;font-family:Roboto;font-size:14px'>Name : $name <br/>
      Phone : $phone <br/>

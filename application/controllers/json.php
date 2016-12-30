@@ -323,4 +323,29 @@ class Json extends CI_Controller
             
       
     }
+    public function testmail(){
+                $url = 'https://api.sendgrid.com/';
+                $params = array(
+                        'api_user'  => base64_decode('TkdVV1BM'),
+                        'api_key'   => base64_decode('bmd1IUAjMTIz'),
+                        'to'        =>'pooja@wohlig.com',
+                        'subject'   => 'Enquiry for HappynessQuotient.com',
+                        'html'      => "Test",
+                        'text'      => 'Will Never Grow Up',
+                        'from'      => 'hq@willnevergrowup.in',
+                        'fromname'      => 'Happyness Quotient',
+                    );
+                    print_r($params);
+                $request =  $url.'api/mail.send.json';
+                $session = curl_init($request);
+                curl_setopt ($session, CURLOPT_POST, true);
+                curl_setopt ($session, CURLOPT_POSTFIELDS, $params);
+                curl_setopt($session, CURLOPT_HEADER, false);
+                curl_setopt($session, CURLOPT_SSL_VERIFYPEER, false);//New line
+                curl_setopt($session, CURLOPT_SSL_VERIFYHOST, false);//New line
+                curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+                $response = curl_exec($session);
+                print_r($response);
+                curl_close($session);
+    }
 }
