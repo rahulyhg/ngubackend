@@ -26,11 +26,6 @@ return $query;
 }
 public function edit($id,$name,$email,$phone,$organization,$query)
 {
-if($image=="")
-{
-$image=$this->contact_model->getimagebyid($id);
-$image=$image->image;
-}
 $data=array("name" => $name,"email" => $email,"phone" => $phone,"organization" => $organization,"query" => $query);
 $this->db->where( "id", $id );
 $query=$this->db->update( "ngubackend_contact", $data );
@@ -49,7 +44,7 @@ return $query;
     public function exportcontactcsv()
 {
 $this->load->dbutil();
-		$query=$this->db->query("SELECT `id`, `name`, `phone`, `organization`, `query` FROM `ngubackend_contact` WHERE 1 ORDER BY `id` DESC");
+		$query=$this->db->query("SELECT `id`, `name`,`email`, `phone`, `organization`, `query` FROM `ngubackend_contact` WHERE 1 ORDER BY `id` DESC");
 
        $content= $this->dbutil->csv_from_result($query);
         //$data = 'Some file data';
