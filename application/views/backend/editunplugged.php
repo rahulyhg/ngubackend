@@ -13,9 +13,9 @@
 </div>
 </div>
 <div class="row">
-<div class="col s12 m6">
+<div class="col s6">
 <label>Email</label>
-<textarea name="email" id="some-textarea" placeholder="Enter text ..."><?php echo set_value( 'email',$before->email);?></textarea>
+<input type="text" id="Email" name="email" value='<?php echo set_value('email',$before->email);?>'>
 </div>
 </div>
 <div class="row">

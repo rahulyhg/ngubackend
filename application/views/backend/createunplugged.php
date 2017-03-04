@@ -10,9 +10,9 @@
 </div>
 </div>
 <div class="row">
-<div class="input-field col s12">
-<textarea name="email" id="some-textarea" class="materialize-textarea" length="400"><?php echo set_value( 'email');?></textarea>
+<div class="input-field col s6">
 <label>Email</label>
+<input type="text" id="email" name="email" value='<?php echo set_value('email');?>'>
 </div>
 </div>
 <div class="row">
