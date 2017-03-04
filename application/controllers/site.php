@@ -1255,4 +1255,134 @@ $this->load->view("redirect",$data);
         $this->load->view('json', $data);
     }
 
+
+
+    public function createunplugged()
+    {
+        $access = array('1');
+        $this->checkaccess($access);
+        $data['page'] = 'createunplugged';
+        $data['title'] = 'Create Unplugged';
+        $this->load->view('template', $data);
+    }
+    public function createunpluggedsubmit()
+    {
+        $access = array('1');
+        $this->checkaccess($access);
+        $this->form_validation->set_rules('name', 'Name', 'trim');
+        $this->form_validation->set_rules('email', 'email', 'trim');
+        $this->form_validation->set_rules('number', 'number', 'trim');
+        if ($this->form_validation->run() == false) {
+            $data['alerterror'] = validation_errors();
+            $data['page'] = 'createunplugged';
+            $data['title'] = 'Create unplugged';
+            $this->load->view('template', $data);
+        } else {
+            $name = $this->input->get_post('name');
+            $email = $this->input->get_post('email');
+            $number = $this->input->get_post('number');
+            if ($this->unplugged_model->create($name, $email, $number) == 0) {
+                $data['alerterror'] = 'New unplugged could not be created.';
+            } else {
+                $data['alertsuccess'] = 'unplugged created Successfully.';
+            }
+            $data['redirect'] = 'site/viewunplugged';
+            $this->load->view('redirect', $data);
+        }
+    }
+    public function editunplugged()
+    {
+        $access = array('1');
+        $this->checkaccess($access);
+        $data['page'] = 'editunplugged';
+        $data['title'] = 'Edit unplugged';
+        $data['before'] = $this->unplugged_model->beforeedit($this->input->get('id'));
+        $this->load->view('template', $data);
+    }
+    public function editunpluggedsubmit()
+    {
+        $access = array('1');
+        $this->checkaccess($access);
+        $this->form_validation->set_rules('id', 'Id', 'trim');
+        $this->form_validation->set_rules('name', 'Name', 'trim');
+        $this->form_validation->set_rules('unplugged', 'unplugged', 'trim');
+        $this->form_validation->set_rules('designation', 'Designation', 'trim');
+        $this->form_validation->set_rules('company', 'Company', 'trim');
+        if ($this->form_validation->run() == false) {
+            $data['alerterror'] = validation_errors();
+            $data['page'] = 'editunplugged';
+            $data['title'] = 'Edit unplugged';
+            $data['before'] = $this->unplugged_model->beforeedit($this->input->get('id'));
+            $this->load->view('template', $data);
+        } else {
+            $id = $this->input->get_post('id');
+            $name = $this->input->get_post('name');
+            $email = $this->input->get_post('email');
+            $number = $this->input->get_post('number');
+            if ($this->unplugged_model->edit($id, $name, $email, $number) == 0) {
+                $data['alerterror'] = 'New unplugged could not be Updated.';
+            } else {
+                $data['alertsuccess'] = 'unplugged Updated Successfully.';
+            }
+            $data['redirect'] = 'site/viewunplugged';
+            $this->load->view('redirect', $data);
+        }
+    }
+    public function deleteunplugged()
+    {
+        $access = array('1');
+        $this->checkaccess($access);
+        $this->unplugged_model->delete($this->input->get('id'));
+        $data['redirect'] = 'site/viewunplugged';
+        $this->load->view('redirect', $data);
+    }
+     public function viewunplugged()
+    {
+        $access = array('1');
+        $this->checkaccess($access);
+        $data['page'] = 'viewunplugged';
+        $data['base_url'] = site_url('site/viewunpluggedjson');
+        $data['title'] = 'View unplugged';
+        $this->load->view('template', $data);
+    }
+    public function viewunpluggedjson()
+    {
+        $elements = array();
+        $elements[0] = new stdClass();
+        $elements[0]->field = '`ngu_unplugged`.`id`';
+        $elements[0]->sort = '1';
+        $elements[0]->header = 'Id';
+        $elements[0]->alias = 'id';
+        $elements[1] = new stdClass();
+        $elements[1]->field = '`ngu_unplugged`.`name`';
+        $elements[1]->sort = '1';
+        $elements[1]->header = 'Name';
+        $elements[1]->alias = 'name';
+        $elements[2] = new stdClass();
+        $elements[2]->field = '`ngu_unplugged`.`email`';
+        $elements[2]->sort = '1';
+        $elements[2]->header = 'Email';
+        $elements[2]->alias = 'email';
+        $elements[3] = new stdClass();
+        $elements[3]->field = '`ngu_unplugged`.`number`';
+        $elements[3]->sort = '1';
+        $elements[3]->header = 'Number';
+        $elements[3]->alias = 'number';
+        
+        $search = $this->input->get_post('search');
+        $pageno = $this->input->get_post('pageno');
+        $orderby = $this->input->get_post('orderby');
+        $orderorder = $this->input->get_post('orderorder');
+        $maxrow = $this->input->get_post('maxrow');
+        if ($maxrow == '') {
+            $maxrow = 20;
+        }
+        if ($orderby == '') {
+            $orderby = 'id';
+            $orderorder = 'ASC';
+        }
+        $data['message'] = $this->chintantable->query($pageno, $maxrow, $orderby, $orderorder, $search, $elements, 'FROM `ngu_unplugged`');
+        $this->load->view('json', $data);
+    }
+
 }
