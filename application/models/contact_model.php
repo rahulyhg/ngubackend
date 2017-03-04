@@ -74,8 +74,8 @@ $return[$row->id]=$row->name;
 return $return;
 }
 
-public function contactSubmit($name,$phone,$organization,$qu){
-  $query=$this->db->query("INSERT INTO `ngubackend_contact`(`name`,`phone`,`organization`,`query`) VALUES('$name','$phone','$organization','$qu')");
+public function contactSubmit($name,$phone,$email,$organization,$qu){
+  $query=$this->db->query("INSERT INTO `ngubackend_contact`(`name`,`phone`,`email`,`organization`,`query`) VALUES('$name','$phone','$email','$organization','$qu')");
   //send email for subscription
 
        $message = "<html><body><div id=':1fn' class='a3s adM' style='overflow: hidden;'>

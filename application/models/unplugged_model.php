@@ -50,5 +50,21 @@ class unplugged_model extends CI_Model
         $query = $this->db->query("SELECT * FROM `ngu_unplugged` WHERE 1")->result();
         return $query;
     }
+    public function unpluggedSubmit($name,$email,$number){
+    $query=$this->db->query("INSERT INTO `ngubackend_unplugged`(`name`,`email`,`number`) VALUES('$name','$email','$number')");
+    if(!empty($query))
+    {
+
+      $object = new stdClass();
+      $object->value = true;
+      return $object;
+    }else {
+      $object = new stdClass();
+      $object->value = false;
+      return $object;
+    }
+
+
+}
 }
 ?>

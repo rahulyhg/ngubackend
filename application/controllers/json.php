@@ -120,10 +120,10 @@ class Json extends CI_Controller
         {
             $name = $data['name'];
             $phone = $data['phone'];
-            // $email = 'vinodwohlig@gmail.com';
+            $email = $data['email'];
             $organization = $data['organization'];
             $qu = $data['query'];
-            $data['message'] = $this->contact_model->contactSubmit($name, $phone, $organization, $qu);
+            $data['message'] = $this->contact_model->contactSubmit($name, $phone,$email, $organization, $qu);
         }
         else{
              $data['message'] =0;
@@ -131,6 +131,24 @@ class Json extends CI_Controller
 
         $this->load->view('json', $data);
     }
+
+    public function unpluggedSubmit()
+    {
+        $data = json_decode(file_get_contents('php://input'), true);
+        if(!empty($data))
+        {
+            $name = $data['name'];
+            $email = $data['email'];
+            $number = $data['number'];
+            $data['message'] = $this->unplugged_model->unpluggedSubmit($name, $email, $number);
+        }
+        else{
+             $data['message'] =0;
+        }
+
+        $this->load->view('json', $data);
+    }
+
     public function getalltestimonial()
     {
         $data['message'] = $this->testimonial_model->getalltestimonial();
