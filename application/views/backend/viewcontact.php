@@ -8,8 +8,9 @@
 <tr>
 <th data-field="id">id</th>
 <th data-field="name">name</th>
- <th data-field="email">email</th> 
+
 <th data-field="phone">phone</th>
+<th data-field="email">email</th> 
 <th data-field="organization">organization</th>
 <th data-field="query">query</th>
 
